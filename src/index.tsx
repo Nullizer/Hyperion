@@ -1,7 +1,20 @@
 import * as React from 'react'
 import { render } from 'react-dom'
+import styles from './article.scss'
+
+const root = document.createElement('div')
+document.body.insertBefore(root, document.body.firstElementChild)
+
+const Heading = () =>
+  <React.Fragment>
+    <h1>Hello, world!</h1>
+    <h2>Long Live JSX!</h2>
+  </React.Fragment>
 
 render(
-  <h1>Hello, world!</h1>,
-  document.getElementById('root')
+  <React.Fragment>
+    <Heading />
+    <p className={styles.paragraphTheme}>Hyperion 796</p>
+  </React.Fragment>,
+  root
 )
