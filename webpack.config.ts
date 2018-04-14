@@ -17,7 +17,7 @@ const commonConfig: Configuration = {
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, {
+        use: [isProd ? MiniCssExtractPlugin.loader : 'style-loader', {
           loader: 'css-loader',
           options: {
             modules: true,
@@ -26,7 +26,7 @@ const commonConfig: Configuration = {
             minimize: isProd,
           }
         }, {
-          loader: 'sass-loader'
+          loader: 'sass-loader',
         }]
       }
     ]
@@ -39,7 +39,6 @@ const commonConfig: Configuration = {
         collapseWhitespace: isProd
       }
     }),
-    new MiniCssExtractPlugin(),
   ],
   optimization: {
     splitChunks: {
@@ -51,10 +50,15 @@ const commonConfig: Configuration = {
 
 const devConfig = merge(commonConfig, {
   mode: 'development',
+  devtool: 'inline-source-map',
 })
 
 const prodConfig = merge(commonConfig, {
   mode: 'production',
+  devtool: false,
+  plugins: [
+    new MiniCssExtractPlugin(),
+  ],
 })
 
 export default isProd ? prodConfig : devConfig

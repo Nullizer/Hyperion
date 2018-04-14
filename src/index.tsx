@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 import styles from './article.scss'
+import Clock from './Clock'
+import Toggle from './Toggle'
 
 const root = document.createElement('div')
 document.body.insertBefore(root, document.body.firstElementChild)
@@ -15,6 +17,8 @@ render(
   <React.Fragment>
     <Heading />
     <p className={styles.paragraphTheme}>Hyperion 796</p>
+    <Clock />
+    <Toggle />
   </React.Fragment>,
   root
 )

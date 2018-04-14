@@ -12,6 +12,7 @@ rules:
   space-in-parens: "warn"
   no-multiple-empty-lines: "warn"
   key-spacing: "warn"
-  typescript/no-unused-vars: 'error'
+  typescript/no-unused-vars: "error"
+  no-undef: "off" # interface will error
 plugins:
   - typescript
