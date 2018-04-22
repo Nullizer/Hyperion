@@ -4,7 +4,7 @@ interface ClockState {
   date: Date
 }
 
-export default class extends React.Component<{}, ClockState> {
+export class Clock extends React.Component<{}, ClockState> {
   timer?: number | NodeJS.Timer
   constructor (props: {}) {
     super(props)
@@ -38,3 +38,5 @@ interface FormattedDateProps {
 function FormattedDate (props: FormattedDateProps) {
   return <h2>Now is {props.date.toLocaleTimeString()}.</h2>
 }
+
+export default Clock
