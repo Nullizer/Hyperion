@@ -56,8 +56,13 @@ const devConfig = merge(commonConfig, {
 const prodConfig = merge(commonConfig, {
   mode: 'production',
   devtool: false,
+  output: {
+    filename: '[name].[chunkhash].js'
+  },
   plugins: [
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css'
+    }),
   ],
 })
 
