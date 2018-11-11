@@ -1,17 +1,18 @@
 import * as React from 'react'
+import { Component } from 'react'
 
 interface ClockState {
   date: Date
 }
 
-export class Clock extends React.Component<{}, ClockState> {
-  timer?: number | NodeJS.Timer
+export class Clock extends Component<{}, ClockState> {
+  timer?: number
   constructor (props: {}) {
     super(props)
     this.state = { date: new Date() }
   }
   componentDidMount () {
-    this.timer = setInterval(this.tick, 1000)
+    this.timer = window.setInterval(this.tick, 1000)
   }
   componentWillUnmount () {
     clearInterval(this.timer as number)
