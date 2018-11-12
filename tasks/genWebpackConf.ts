@@ -67,7 +67,7 @@ export default function (isProd: boolean, template: string, target?: 'es5'): Con
           attribute: 'nomodule'
         },
         module: {
-          test: /^(?!.*\.es5.js$)/
+          test: /^(?!.*\.es5\.js$)/
         }
       })
     ],
