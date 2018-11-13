@@ -5,7 +5,7 @@ import genWebpackConf from './genWebpackConf'
 
 process.env.NODE_ENV = 'development'
 
-const config = merge(genWebpackConf(false, 'src/index.html'), {
+const config = merge(genWebpackConf(false, 'src/index.html', false), {
   plugins: [
     new webpack.HotModuleReplacementPlugin()
   ]

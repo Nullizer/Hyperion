@@ -1,18 +1,9 @@
 import { Configuration, RuleSetRule } from 'webpack'
-import * as merge from 'webpack-merge'
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 
-const extractCSSConf: Configuration = {
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css'
-    }),
-  ],
-}
-
-export default function (isProd: boolean, template: string, target?: 'es5'): Configuration {
+export default function (isProd: boolean, template: string, extractCSS: boolean, target?: 'es5'): Configuration {
   const tsRule: RuleSetRule = {
     test: /\.tsx?$/,
     loader: 'ts-loader',
@@ -24,9 +15,9 @@ export default function (isProd: boolean, template: string, target?: 'es5'): Con
       }
     }
   }
-  const commonConf: Configuration = {
+  const config: Configuration = {
     mode: isProd ? 'production' : 'development',
-    devtool: 'source-map',
+    devtool: isProd ? false : 'cheap-module-source-map',
     resolve: {
       extensions: ['.ts', '.tsx', '.js']
     },
@@ -39,7 +30,7 @@ export default function (isProd: boolean, template: string, target?: 'es5'): Con
         tsRule,
         {
           test: /\.scss$/,
-          use: [isProd ? MiniCssExtractPlugin.loader : 'style-loader', {
+          use: [extractCSS && !target ? MiniCssExtractPlugin.loader : 'style-loader', {
             loader: 'css-loader',
             options: {
               modules: true,
@@ -69,7 +60,10 @@ export default function (isProd: boolean, template: string, target?: 'es5'): Con
         module: {
           test: /^(?!.*\.es5\.js$)/
         }
-      })
+      }),
+      new MiniCssExtractPlugin({
+        filename: '[name].[contenthash].css'
+      }),
     ],
     optimization: {
       splitChunks: {
@@ -77,10 +71,6 @@ export default function (isProd: boolean, template: string, target?: 'es5'): Con
       },
       runtimeChunk: true
     },
-  }
-  let config = commonConf
-  if (isProd) {
-    config = merge(config, extractCSSConf)
   }
   return config
 }

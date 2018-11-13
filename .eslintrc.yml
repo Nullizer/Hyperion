@@ -15,5 +15,6 @@ rules:
   typescript/no-unused-vars: "error"
   no-undef: "off" # interface will error
   import/no-duplicates: "off"
+  no-unused-vars: "warn"
 plugins:
   - typescript
