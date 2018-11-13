@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { Component } from 'react'
+import { PureComponent } from 'react'
 
 interface ClockState {
   date: Date
 }
 
-export class Clock extends Component<{}, ClockState> {
+export class Clock extends PureComponent<{}, ClockState> {
   timer?: number
   constructor (props: {}) {
     super(props)

@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { Component } from 'react'
+import { PureComponent } from 'react'
 
-export class Toggle extends Component<{}, {isToggleOn: boolean}> {
+export class Toggle extends PureComponent<{}, {isToggleOn: boolean}> {
   constructor (props: {}) {
     super(props)
     this.state = { isToggleOn: true }
