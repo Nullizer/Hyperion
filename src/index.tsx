@@ -30,4 +30,5 @@ render(
 ;(async function () {
   const resp = await fetch('https://api.github.com/users/nullizer').then(r => r.json())
   console.log(resp, 42)
+  console.log('My Avatar: ' + resp.avatar_url)
 })()
