@@ -61,7 +61,7 @@
     "webpack-merge": "^4.1.4"
   },
   "browserslist": [
-    "ie >= 11",
+    "ie >= 9",
     "android >= 2.3",
     "defaults"
   ]
