@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Fragment, lazy, Suspense, StrictMode, memo } from 'react'
 import { render } from 'react-dom'
+import './global.scss'
 import styles from './article.scss'
 import Clock from './Clock'
 

@@ -4,8 +4,10 @@ import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 import TwiceBuildPlugin from './TwiceBuildPlugin'
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const getLocalIdent = require('css-loader/lib/getLocalIdent')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-export default function (isProd: boolean, inBuild: boolean, target?: 'es5'): Configuration {
+export default function (isProd: boolean, inTwiceBuild: boolean, target?: 'es5'): Configuration {
   const tsRule: RuleSetRule = {
     test: /\.tsx?$/,
     loader: 'ts-loader',
@@ -18,7 +20,7 @@ export default function (isProd: boolean, inBuild: boolean, target?: 'es5'): Con
     }
   }
 
-  const config: Configuration = {
+  let config: Configuration = {
     mode: isProd ? 'production' : 'development',
     devtool: isProd ? false : 'cheap-module-source-map',
     resolve: {
@@ -37,18 +39,33 @@ export default function (isProd: boolean, inBuild: boolean, target?: 'es5'): Con
         tsRule,
         {
           test: /\.scss$/,
-          use: [ inBuild ? MiniCssExtractPlugin.loader : 'style-loader', {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              camelCase: true,
-              // localIdentName: '[name]-[local]_[hash:base64:4]',
-              localIdentName: '[name]-[local]',
-              minimize: isProd,
-            }
-          }, {
-            loader: 'sass-loader',
-          }]
+          use: [ inTwiceBuild ? MiniCssExtractPlugin.loader : 'style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                camelCase: true,
+                // localIdentName: '[name]-[local]_[hash:base64:4]',
+                localIdentName: '[name]-[local]',
+                getLocalIdent: (loaderContext: any, localIdentName: string, localName: string, options: object) => {
+                  // https://github.com/css-modules/css-modules/pull/65
+                  return loaderContext.resourcePath.includes('global')
+                    ? localName : getLocalIdent(loaderContext, localIdentName, localName, options)
+                },
+                minimize: isProd,
+                importLoaders: 2,
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  require('autoprefixer'),
+                ]
+              }
+            },
+            'sass-loader'
+          ]
         }
       ]
     },
@@ -80,12 +97,21 @@ export default function (isProd: boolean, inBuild: boolean, target?: 'es5'): Con
     },
   }
 
-  if (inBuild) {
-    return merge(config, {
+  if (inTwiceBuild) {
+    config = merge(config, {
       plugins: [
-        new TwiceBuildPlugin()
+        new TwiceBuildPlugin(),
       ]
     })
   }
+
+  if (isProd) {
+    config = merge(config, {
+      plugins: [
+        new OptimizeCssAssetsPlugin(),
+      ]
+    })
+  }
+
   return config
 }
