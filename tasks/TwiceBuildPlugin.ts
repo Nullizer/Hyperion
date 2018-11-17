@@ -67,7 +67,7 @@ export default class TwiceBuildPlugin {
       tagName: 'script',
       closeTag: true,
       attributes: {
-        src: 'https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch',
+        src: 'https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch&flags=gated',
         nomodule: ''
       }
     })

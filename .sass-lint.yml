@@ -1,3 +1,8 @@
 rules:
   quotes: 0
   no-color-keywords: 0
+  single-line-per-selector: 0
+  pseudo-element: 0
+  no-color-literals: 0
+  property-sort-order: 0
+  indentation: 0 # for grid-template-areas

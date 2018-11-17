@@ -60,7 +60,7 @@ export default function (isProd: boolean, inTwiceBuild: boolean, target?: 'es5')
               loader: 'postcss-loader',
               options: {
                 plugins: [
-                  require('autoprefixer'),
+                  require('autoprefixer')({ grid: true }),
                 ]
               }
             },
