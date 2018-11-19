@@ -25,12 +25,18 @@ render(
     <Suspense fallback={<div>Loading...</div>}>
       <Toggle />
     </Suspense>
-
     <div className={exampleStyles.container}>
       <div className={exampleStyles.itemA}></div>
       <div className={exampleStyles.itemB}></div>
       <div className={exampleStyles.itemC}></div>
       <div className={exampleStyles.itemD}></div>
+    </div>
+    <div className={exampleStyles.emojiBoard}>
+      😀 😎 🤖 👨‍👩‍👧‍👦 👦🏻 👧🏻 👨🏻 👩🏻 👦🏼 👧🏼 👨🏼 👩🏼<br />
+      👦🏽 👧🏽 👨🏽 👩🏽 👦🏾 👧🏾 👨🏾 👩🏾 👦🏿 👧🏿 👨🏿 👩🏿<br />
+      🐱 🐶 🐌 🌎 🍕 🍲 🍫 🍻 ⚽️ 🏀 🏈 ⚾️<br />
+      🌈 🏯 🗽 🚆 📱 🎉 🗓 💸 🇫 🇴 🇳 🇹<br />
+      🇺🇸 🇧🇷 🇲🇹 🇸🇪 🇳🇬 🇰🇭 🇭🇷 🇮🇩 🇳🇿 🇪🇬 🇨🇳 🇹🇼<br />
     </div>
   </StrictMode>,
   root

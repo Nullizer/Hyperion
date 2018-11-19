@@ -1,12 +1,7 @@
 import { Compiler } from 'webpack'
 import { join, basename, dirname } from 'path'
 import { ensureDir, mkdirp, writeFile, readFile, remove, existsSync } from 'fs-extra'
-
-interface AssetTagsData {
-  head: any[]
-  body: any[]
-  html: string
-}
+import { AssetTagsData } from './def'
 
 export default class TwiceBuildPlugin {
   apply (compiler: Compiler) {
@@ -21,10 +16,6 @@ export default class TwiceBuildPlugin {
         }
         cb()
       })
-
-      ;(compilation.hooks as any).htmlWebpackPluginAfterHtmlProcessing.tap(ID, (data: AssetTagsData) => {
-        data.html = data.html.replace(/\snomodule="">/g, ' nomodule>')
-      })
     })
   }
 
@@ -35,7 +26,6 @@ export default class TwiceBuildPlugin {
 
   private async finalBuild (assetsFile: string, data: AssetTagsData) {
     const assets = JSON.parse(await readFile(assetsFile, 'utf-8'))
-    this.injectPolyfill(data)
     this.injectSafariNoModuleFix(data)
     data.body.push(...assets)
     await remove(assetsFile)
@@ -57,17 +47,6 @@ export default class TwiceBuildPlugin {
       closeTag: true,
       innerHTML: safariFix,
       attributes: {
-        nomodule: ''
-      }
-    })
-  }
-
-  private injectPolyfill (data: AssetTagsData) {
-    data.body.push({
-      tagName: 'script',
-      closeTag: true,
-      attributes: {
-        src: 'https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch&flags=gated',
         nomodule: ''
       }
     })

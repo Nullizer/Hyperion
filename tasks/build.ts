@@ -1,7 +1,7 @@
 import { Configuration } from 'webpack'
 import * as webpack from 'webpack'
 import { sync as rm } from 'rimraf'
-import genWebpackConf from './genWebpackConf'
+import genWebpackConf from './lib/genWebpackConf'
 
 async function build (webpackConfig: Configuration) {
   const compiler = webpack(webpackConfig)
@@ -30,8 +30,8 @@ const isProd = process.env.NODE_ENV === 'production'
 async function main () {
   try {
     rm('dist')
-    await build(genWebpackConf(isProd, true, 'es5'))
-    await build(genWebpackConf(isProd, true))
+    await build(genWebpackConf(isProd, true, false, 'es5'))
+    await build(genWebpackConf(isProd, true, true))
   } catch (error) {
     console.error('Error capture in main: ', error)
   }

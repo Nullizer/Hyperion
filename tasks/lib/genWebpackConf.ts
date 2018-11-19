@@ -3,11 +3,12 @@ import * as merge from 'webpack-merge'
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 import TwiceBuildPlugin from './TwiceBuildPlugin'
+import InjectFixesPlugin from './InjectFixesPlugin'
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const getLocalIdent = require('css-loader/lib/getLocalIdent')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-export default function (isProd: boolean, inTwiceBuild: boolean, target?: 'es5'): Configuration {
+export default function (isProd: boolean, inTwiceBuild: boolean, useFixesPlugin: boolean, target?: 'es5'): Configuration {
   const tsRule: RuleSetRule = {
     test: /\.tsx?$/,
     loader: 'ts-loader',
@@ -66,6 +67,10 @@ export default function (isProd: boolean, inTwiceBuild: boolean, target?: 'es5')
             },
             'sass-loader'
           ]
+        },
+        {
+          test: /\.(woff|woff2|eot|ttf|otf)$/,
+          use: [ 'file-loader' ]
         }
       ]
     },
@@ -101,6 +106,14 @@ export default function (isProd: boolean, inTwiceBuild: boolean, target?: 'es5')
     config = merge(config, {
       plugins: [
         new TwiceBuildPlugin(),
+      ]
+    })
+  }
+
+  if (useFixesPlugin) {
+    config = merge(config, {
+      plugins: [
+        new InjectFixesPlugin(),
       ]
     })
   }
