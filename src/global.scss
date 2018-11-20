@@ -7,10 +7,10 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue",
-  Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei",
+  font-family: "Open Sans", "Fira Sans", -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI",
+  "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei",
   sans-serif, "Noto Color Emoji", "Twemoji Mozilla", "Segoe UI Emoji";
-  // Twemoji Mozilla is builtin emoji-font for Firefox, IE need delare Segoe UI Emoji explicit
+  // Twemoji Mozilla is builtin emoji-font in Firefox. IE need delare Segoe UI Emoji explicit
   // Microsoft not contain any country flags in their emojis
 }
 
