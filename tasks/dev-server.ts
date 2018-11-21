@@ -3,6 +3,7 @@ import * as merge from 'webpack-merge'
 import * as WebpackDevServer from 'webpack-dev-server'
 import genWebpackConf from './lib/genWebpackConf'
 import { sync as rm } from 'rimraf'
+import { address } from 'ip'
 
 process.env.NODE_ENV = 'development'
 
@@ -26,5 +27,5 @@ const compiler = webpack(config)
 const server = new WebpackDevServer(compiler, options)
 
 server.listen(5000, '0.0.0.0', () => {
-  console.log('dev server listening on http://0.0.0.0:5000')
+  console.log(`dev server listening on http://${address()}:5000 or http://localhost:5000`)
 })

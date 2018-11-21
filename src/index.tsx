@@ -26,10 +26,18 @@ render(
       <Toggle />
     </Suspense>
     <div className={exampleStyles.container}>
-      <div className={exampleStyles.itemA}></div>
-      <div className={exampleStyles.itemB}></div>
-      <div className={exampleStyles.itemC}></div>
-      <div className={exampleStyles.itemD}></div>
+      <div className={exampleStyles.itemA}>
+        <p>itemA</p>
+      </div>
+      <div className={exampleStyles.itemB}>
+        <p>itemB</p>
+      </div>
+      <div className={exampleStyles.itemC}>
+        <p>itemC</p>
+      </div>
+      <div className={exampleStyles.itemD}>
+        <p>itemD</p>
+      </div>
     </div>
     <div className={exampleStyles.emojiBoard}>
       😀 😎 🤖 👨‍👩‍👧‍👦 👦🏻 👧🏻 👨🏻 👩🏻 👦🏼 👧🏼 👨🏼 👩🏼<br />
