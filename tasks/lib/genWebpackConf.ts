@@ -31,10 +31,11 @@ export default function (isProd: boolean, inTwiceBuild: boolean, useFixesPlugin:
       filename: isProd ? (target ? `[name].[chunkhash].${target}.js` : '[name].[chunkhash].js')
         : (target ? `[name].${target}.js` : '[name].js')
     },
-    // externals: {
-    //   react: 'React',
-    //   'react-dom': 'ReactDOM',
-    // },
+    externals: {
+      // react: 'React',
+      // 'react-dom': 'ReactDOM',
+      'object-assign': 'Object.assign',
+    },
     module: {
       rules: [
         tsRule,
